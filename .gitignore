@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment files
+.env
+*.env
+
+# SQLite / DB files (if ever used for local testing)
+*.sqlite3
+*.db
+
+# Poetry-related
+poetry.lock
+.venv/
+venv/
+env/
+
+# Alembic
+alembic/versions/*.pyc
+alembic/versions/__pycache__/
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# Logs / misc
+*.log
+.DS_Store
+*.bak
