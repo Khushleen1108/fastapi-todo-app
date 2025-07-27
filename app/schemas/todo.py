@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 class ToDoBase(BaseModel):
@@ -14,3 +15,12 @@ class ToDoOut(ToDoBase):
     model_config = {
         "from_attributes": True
     }
+
+class ToDoUpdate(BaseModel):
+    title: Optional[str]
+    description: Optional[str]
+    completed: Optional[bool]
+
+    class Config:
+        from_attributes = True
+    

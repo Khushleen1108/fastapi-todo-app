@@ -66,21 +66,41 @@ Visit: http://localhost:8000/docs for Swagger UI.
 ```yaml
 todo-app/
 ├── app/
-│ ├── core/
-│ ├── crud/
-│ ├── database/
-│ ├── models/
-│ ├── schemas/
-│ ├── routers/
-│ ├── main.py│ 
-├── alembic/
-│ ├── versions/
-│ └── env.py
-├── .env
-├── .gitignore
-├── pyproject.toml
-├── poetry.toml
-└── README.md
+│   ├── core/                      # ⚙️ Core logic and settings
+│   │   └── security.py
+│
+│   ├── crud/                      # 📦 Encapsulated DB logic (CRUD operations)
+│   │   ├── user.py                # CRUD ops related to User (create_user, get_user_by_email, etc.)
+│   │   └── todo.py                # CRUD ops related to ToDo items
+│
+│   ├── database/                  # 🗄️ DB connection and base metadata
+│   │   └── db.py 
+│
+│   ├── models/                    # 🧱 SQLAlchemy ORM models
+│   │   ├── user.py                # User model (id, username, email, password hash)
+│   │   ├── todo.py                # ToDo model (id, title, description, etc.)
+│   │   └── __init__.py            # Import all models for Alembic
+│
+│   ├── routers/                   # 🌐 API endpoints
+│   │   ├── auth.py                # Endpoints for login and registration
+│   │   ├── todo.py                # Endpoints for CRUD /todos and /todos/{id}/complete
+│   │   └── user.py                # Get current user, change password, etc.
+│
+│   ├── schemas/                   # 🧾 Pydantic request/response models
+│   │   ├── user.py                # UserCreate, UserOut, ChangePasswordRequest
+│   │   ├── todo.py                # ToDoBase, ToDoCreate, ToDoUpdate, ToDoOut
+│
+│   └── main.py                    # 🚀 FastAPI app entry point (include routers, start app)
+│
+├── alembic/                       # 🧬 Alembic DB migrations
+│   ├── versions/                  # 🔁 Auto-generated migration scripts
+│   └── env.py                     # Alembic config that connects models to migrations
+│
+├── .env                           # 🔐 Environment variables (DB URL, JWT secret, etc.)
+├── .gitignore                     # 🚫 Git ignore rules (e.g. __pycache__, .env)
+├── pyproject.toml                 # 📦 Poetry project config (dependencies, scripts, etc.)
+├── poetry.toml                    # ⚙️ Optional poetry settings (like virtualenv location)
+└── README.md                      # 📘 Project documentation (setup, usage, etc.)
 ```
 
 ---

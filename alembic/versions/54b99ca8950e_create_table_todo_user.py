@@ -1,8 +1,8 @@
-"""Add todo and user tables
+"""Create table todo user
 
-Revision ID: b09a1f093a66
-Revises: 9c111ad342f8
-Create Date: 2025-07-24 17:27:12.803928
+Revision ID: 54b99ca8950e
+Revises: 
+Create Date: 2025-07-25 15:49:11.239226
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'b09a1f093a66'
-down_revision: Union[str, Sequence[str], None] = '9c111ad342f8'
+revision: str = '54b99ca8950e'
+down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
