@@ -4,8 +4,7 @@ from passlib.context import CryptContext
 
 from app.models.user import User
 from app.schemas.user import UserOut, ChangePasswordRequest
-from app.database.db import get_db
-from app.core.security import get_current_user
+from app.dependencies import get_db, get_current_user
 
 router = APIRouter(prefix="/user", tags=["User"])
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

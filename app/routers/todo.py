@@ -5,8 +5,7 @@ from app.models.todo import ToDo
 from app.schemas.todo import ToDoCreate, ToDoOut, ToDoUpdate
 from fastapi import status
 from app.crud import todo as crud
-from app.database.db import get_db
-from app.core.security import get_current_user
+from app.dependencies import get_db, get_current_user
 from app.models.user import User
 
 router = APIRouter()

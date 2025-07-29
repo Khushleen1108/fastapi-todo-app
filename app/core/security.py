@@ -1,28 +1,23 @@
+import os
 from datetime import datetime, timedelta
 from typing import Optional
+from dotenv import load_dotenv
 
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import HTTPException, status
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from sqlalchemy.orm import Session
 
-from app.database.db import get_db
 from app.models.user import User
 
-auth_scheme = HTTPBearer()
+load_dotenv()
 
 # Setup password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # JWT configuration
-SECRET_KEY = "secretvalue"  # Use a strong value from environment variables in production
+SECRET_KEY = os.getenv("SECRET_KEY")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
-
-# HTTP Bearer scheme for token extraction
-bearer_scheme = HTTPBearer()
-
 
 # ---------------------- Password Handling ----------------------
 
@@ -52,23 +47,3 @@ def decode_access_token(token: str) -> dict:
             detail="Could not validate token",
             headers={"WWW-Authenticate": "Bearer"},
         )
-
-
-# ---------------------- Current User Dependency ----------------------
-
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(auth_scheme),
-    db: Session = Depends(get_db)
-) -> User:
-    token = credentials.credentials
-    payload = decode_access_token(token)
-    user_id = payload.get("sub")
-
-    if not user_id:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
-    user = db.query(User).filter(User.id == int(user_id)).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    return user
